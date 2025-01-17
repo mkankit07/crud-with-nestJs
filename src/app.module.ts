@@ -16,6 +16,8 @@ import { User } from './user/user.entity';
 import { Artist } from './artist/artist.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { PlaylistModule } from './playlist/playlist.module';
+import { Playlist } from './playlist/playlist.entity';
 
 @Module({
   imports: [
@@ -27,12 +29,13 @@ import { UserModule } from './user/user.module';
       username: 'postgres',
       password: 'root',
       // entities: ['src/**/*.entity.ts'],
-      entities: [Song,User, Artist],
+      entities: [Song,User, Artist,Playlist],
       synchronize: true,
     }),
     SongsModule,
     AuthModule,
-    UserModule
+    UserModule,
+    PlaylistModule
   ],
   controllers: [AppController],
   providers: [AppService],
