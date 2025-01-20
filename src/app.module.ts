@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { Playlist } from './playlist/playlist.entity';
+import { ArtistModule } from './artist/artist.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { Playlist } from './playlist/playlist.entity';
     SongsModule,
     AuthModule,
     UserModule,
-    PlaylistModule
+    PlaylistModule,
+    ArtistModule
   ],
   controllers: [AppController],
   providers: [AppService],
