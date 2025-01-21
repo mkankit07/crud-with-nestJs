@@ -18,25 +18,18 @@ import { UserModule } from './user/user.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { Playlist } from './playlist/playlist.entity';
 import { ArtistModule } from './artist/artist.module';
+import { dataSourceOptions } from 'db/data-source';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type:"postgres",
-      database: 'spotify-clone',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'root',
-      // entities: ['src/**/*.entity.ts'],
-      entities: [Song,User, Artist,Playlist],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     SongsModule,
     AuthModule,
     UserModule,
     PlaylistModule,
-    ArtistModule
+    ArtistModule,
+    SeedModule
   ],
   controllers: [AppController],
   providers: [AppService],
