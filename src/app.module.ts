@@ -10,19 +10,22 @@ import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
 import { SongsController } from './songs/songs.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { Song } from './songs/song.entity';
-import { User } from './user/user.entity';
-import { Artist } from './artist/artist.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PlaylistModule } from './playlist/playlist.module';
-import { Playlist } from './playlist/playlist.entity';
 import { ArtistModule } from './artist/artist.module';
 import { dataSourceOptions } from 'db/data-source';
 import { SeedModule } from './seed/seed.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './configs/configuration';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath:[".env"],
+      isGlobal: true,
+      load: [configuration]
+    }),
     TypeOrmModule.forRoot(dataSourceOptions),
     SongsModule,
     AuthModule,
