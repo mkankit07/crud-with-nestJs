@@ -18,13 +18,15 @@ import { dataSourceOptions } from 'db/data-source';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './configs/configuration';
+import { validate } from '../env.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath:[".env"],
       isGlobal: true,
-      load: [configuration]
+      load: [configuration],
+      validate:validate
     }),
     TypeOrmModule.forRoot(dataSourceOptions),
     SongsModule,
