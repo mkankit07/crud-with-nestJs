@@ -9,6 +9,7 @@ import { Enable2FAType } from './types';
 import { ValidateTokenDTO } from './dto/validate-token-dto';
 import { UpdateResult } from 'typeorm';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -18,6 +19,11 @@ export class AuthController {
   ) {}
 
   @Post('signup')
+  @ApiOperation({summary:"Register new user",})
+  @ApiResponse({
+    status: 201,
+    description: 'User created successfully',
+  })
   setUp(@Body() userDTO: CreatUserDTO): Promise<User> {
     return this.userService.create(userDTO);
   }
@@ -28,6 +34,7 @@ export class AuthController {
   }
 
   @Get("enable-2fa")
+  @ApiBearerAuth("JWT-auth")
   @UseGuards(JwtAuthGuard)
   enable2FA(@Req() req): Promise<Enable2FAType> {
     return this.authService.enable2FA(req.user.id);
