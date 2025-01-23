@@ -41,12 +41,14 @@ export class AuthController {
   }
 
   @Get("disable-2fa")
+  @ApiBearerAuth("JWT-auth")
   @UseGuards(JwtAuthGuard)
   disable2FA(@Req() req): Promise<UpdateResult> {
     return this.authService.disable2FA(req.user.id);
   }
 
   @Post("validate-2fa")
+  @ApiBearerAuth("JWT-auth")
   @UseGuards(JwtAuthGuard)
   validate2FA(
     @Body()
@@ -57,6 +59,7 @@ export class AuthController {
   }
 
   @Get('profile')
+  @ApiBearerAuth("JWT-auth")
   @UseGuards(AuthGuard('bearer'))
   getProfile(
     @Req()

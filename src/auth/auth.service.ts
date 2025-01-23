@@ -23,9 +23,7 @@ export class AuthService {
   ) {}
 
   async login(loginDTO: LoginDTO): Promise<{ accessToken: string }|{ validate2FA: string; message: string }> {
-    console.log(loginDTO)
     const user = await this.userService.findOne(loginDTO.email); // 1.
-    console.log(user);
     const passwordMatched = await bcrypt.compare(
       loginDTO.password,
       user.password,
