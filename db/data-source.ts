@@ -1,4 +1,4 @@
-import "dotenv/config";
+import 'dotenv/config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import {
   TypeOrmModuleAsyncOptions,
@@ -14,15 +14,11 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   ): Promise<TypeOrmModuleOptions> => {
     return {
       type: 'postgres',
-      host: configService.get<string>('dbHost'),
-      port: configService.get<number>('dbPort'),
-      username: configService.get<string>('username'),
-      database: configService.get<string>('dbName'),
-      password: configService.get<string>('password'),
+      url: configService.get<string>('DATABASE_URL'),
       entities: ['dist/**/*.entity.js'],
       synchronize: false,
-      ssl:{
-        rejectUnauthorized:true
+      ssl: {
+        rejectUnauthorized: true,
       },
       migrations: ['dist/db/migrations/*.js'],
     };
@@ -31,14 +27,10 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT),
-  username: process.env.DB_USERNAME,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
+  url: process.env.DATABASE_URL,
   entities: ['dist/**/*.entity.js'], //1
-  ssl:{
-    rejectUnauthorized:true
+  ssl: {
+    rejectUnauthorized: true,
   },
   synchronize: false, // 2
   migrations: ['dist/db/migrations/*.js'], // 3
