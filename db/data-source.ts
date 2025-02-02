@@ -21,6 +21,9 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       password: configService.get<string>('password'),
       entities: ['dist/**/*.entity.js'],
       synchronize: false,
+      ssl:{
+        rejectUnauthorized:true
+      },
       migrations: ['dist/db/migrations/*.js'],
     };
   },
@@ -34,6 +37,9 @@ export const dataSourceOptions: DataSourceOptions = {
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   entities: ['dist/**/*.entity.js'], //1
+  ssl:{
+    rejectUnauthorized:true
+  },
   synchronize: false, // 2
   migrations: ['dist/db/migrations/*.js'], // 3
 };
