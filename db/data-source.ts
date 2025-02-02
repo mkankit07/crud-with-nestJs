@@ -30,9 +30,14 @@ export const dataSourceOptions: DataSourceOptions = {
   url: process.env.DATABASE_URL,
   entities: ['dist/**/*.entity.js'], //1
   ssl: {
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
   },
   synchronize: false, // 2
+  migrationsRun: true,
+  extra: {
+    max: 20, // connection pool settings
+    connectionTimeoutMillis: 5000,
+  },
   migrations: ['dist/db/migrations/*.js'], // 3
 };
 
